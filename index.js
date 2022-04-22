@@ -1,4 +1,4 @@
-//Variables globales
+﻿//Variables globales
 let pantallaP = {
 };
 let prompt = {
@@ -9,7 +9,7 @@ let rondaPantalla = "p1";
 
 let rondaPrompt = "p1";
 
-let emotionChecker;
+let emotionChecker = "na";
 
 //Key handler 
 const Action = {
@@ -50,7 +50,20 @@ function rondaHandler(){
 		break;
 
 		case 2:
+		if(emotionChecker==="na"){
+		ronda -= 1;
+		}else{
 		rondaPrompt = "p3";
+		};
+		break;
+
+		case 3:
+		rondaPrompt = "p4";
+		break;
+
+		case 4:
+		rondaPrompt = "p5";
+		break;
 	}
 }
 
@@ -63,24 +76,34 @@ function rojoHandler(){
 
 		case 1:
 		rondaPantalla = "p2.angry2";
-		emotionChecker = "angry"
+		emotionChecker = "angry";
+		//emoji
+		emojisplosion({
+		emojiCount: 15,
+		emojis: ["😡"],
+		container: document.getElementById("emojis"),
+		className: "angry",
+		position: {
+		x: innerWidth*(1/4),
+		y: innerHeight/2,
+		},
+		});
+		emojisplosion({
+		emojiCount: 15,
+		emojis: ["😡"],
+		container: document.getElementById("emojis"),
+		className: "angry",
+		position: {
+		x: innerWidth*(3/4),
+		y: innerHeight/2,
+		},
+		});
 		break;
 
-		case 3:
-		switch(emotionChecker){
-			case: angry
-			rondaPantalla = "p2.angry2";
-			break;
-			case: happy
-			rondaPantalla = "p2.happy2";
-			break;
-			case: sad
-			rondaPantalla = "p2.sad2";
-			break;
-			case: calm 
-			rondaPantalla = "p2.calm2";
-			break;
-		}
+		case 2:
+		ronda -= 1;
+		emotionChecker = "na";
+		rondaHandler();
 		break;
 	}
 }
@@ -94,7 +117,46 @@ function amarilloHandler(){
 
 		case 1:
 		rondaPantalla = "p2.happy2";
-		emotionChecker = "happy"
+		emotionChecker = "happy";
+		//emoji
+		emojisplosion({
+		emojiCount: 15,
+		emojis: ["😃"],
+		container: document.getElementById("emojis"),
+		className: "happy",
+		position: {
+		x: innerWidth*(1/4),
+		y: innerHeight/2,
+		},
+		});
+		emojisplosion({
+		emojiCount: 15,
+		emojis: ["😃"],
+		container: document.getElementById("emojis"),
+		className: "happy",
+		position: {
+		x: innerWidth*(3/4),
+		y: innerHeight/2,
+		},
+		});
+		break;
+
+		case 2:{
+			switch(emotionChecker){
+				case "angry":
+				rondaPantalla = "p2.angry1";
+				break;
+				case "happy":
+				rondaPantalla = "p2.happy1";
+				break;
+				case "sad":
+				rondaPantalla = "p2.sad1";
+				break;
+				case "calm": 
+				rondaPantalla = "p2.calm1";
+				break;
+			}
+		}
 		break;
 	}
 }
@@ -108,7 +170,46 @@ function azulHandler(){
 
 		case 1:
 		rondaPantalla = "p2.sad2";
-		emotionChecker = "sad"
+		emotionChecker = "sad";
+		//emoji
+		emojisplosion({
+		emojiCount: 15,
+		emojis: ["🙁"],
+		container: document.getElementById("emojis"),
+		className: "sad",
+		position: {
+		x: innerWidth*(1/4),
+		y: innerHeight/2,
+		},
+		});
+		emojisplosion({
+		emojiCount: 15,
+		emojis: ["🙁"],
+		container: document.getElementById("emojis"),
+		className: "sad",
+		position: {
+		x: innerWidth*(3/4),
+		y: innerHeight/2,
+		},
+		});
+		break;
+
+		case 2:{
+			switch(emotionChecker){
+				case "angry":
+				rondaPantalla = "p2.angry2";
+				break;
+				case "happy":
+				rondaPantalla = "p2.happy2";
+				break;
+				case "sad":
+				rondaPantalla = "p2.sad2";
+				break;
+				case "calm": 
+				rondaPantalla = "p2.calm2";
+				break;
+			};
+		}
 		break;
 	}
 }
@@ -122,7 +223,46 @@ function verdeHandler(){
 
 		case 1:
 		rondaPantalla = "p2.calm2";
-		emotionChecker = "calm"
+		emotionChecker = "calm";
+		//emoji
+		emojisplosion({
+		emojiCount: 15,
+		emojis: ["👌"],
+		container: document.getElementById("emojis"),
+		className: "calm",
+		position: {
+		x: innerWidth*(1/4),
+		y: innerHeight/2,
+		},
+		});
+		emojisplosion({
+		emojiCount: 15,
+		emojis: ["👌"],
+		container: document.getElementById("emojis"),
+		className: "calm",
+		position: {
+		x: innerWidth*(3/4),
+		y: innerHeight/2,
+		},
+		});
+		break;
+
+		case 2:{
+			switch(emotionChecker){
+				case "angry":
+				rondaPantalla = "p2.angry3";
+				break;
+				case "happy":
+				rondaPantalla = "p2.happy3";
+				break;
+				case "sad":
+				rondaPantalla = "p2.sad3";
+				break;
+				case "calm": 
+				rondaPantalla = "p2.calm3";
+				break;
+			}
+		};
 		break;
 	}
 }
@@ -133,9 +273,11 @@ function verdeHandler(){
 //
 
 function setup() {
+  let cnv = createCanvas(windowWidth,windowHeight);
+  cnv.id("canvas");
+  cnv.parent("contenedor");
   background(41);
-  createCanvas(windowWidth,windowHeight);
-  
+
   //Ronda 1, 2 PantallaP
   pantallaP["p1"] = createVideo('media/ronda1.mp4');
   pantallaP["p1"].hide();
@@ -217,6 +359,8 @@ function setup() {
   prompt["p1"] = loadImage('media/prompt/prompt1.gif');
   prompt["p2"] = loadImage('media/prompt/prompt2.gif');
   prompt["p3"] = loadImage('media/prompt/prompt3.gif');
+  prompt["p4"] = loadImage('media/prompt/prompt4.gif');
+  prompt["p5"] = loadImage('media/prompt/prompt5.gif');
 }
 
 function draw() {

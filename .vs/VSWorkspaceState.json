@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\media",
+    "\\media\\emociones"
   ],
-  "SelectedNode": "\\index.js",
+  "SelectedNode": "\\estilo.css",
   "PreviewInSolutionExplorer": false
 }
