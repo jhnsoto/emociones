@@ -1,9 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\media",
-    "\\media\\emociones"
+    "\\librerias",
+    "\\media"
   ],
-  "SelectedNode": "\\estilo.css",
+  "SelectedNode": "\\librerias\\loading-bar.js",
   "PreviewInSolutionExplorer": false
 }

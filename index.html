@@ -3,8 +3,10 @@
 
   <head>
     <script src="librerias/p5.min.js"></script>
+    <script src="librerias/loading-bar.js"></script>
 	<script src="index.js"></script>
     <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="librerias/loading-bar.css">
 	<style type="text/css">
           body {margin:0; padding:0;} /* remove top and left whitespace */
           canvas {display:block;}    /* remove scrollbars */
@@ -19,6 +21,17 @@
   </div>
 
   <div id="emojis">
+
+    <div class="myBar label-center"></div>
+    <script>
+      let bar = new ldBar(".myBar", {
+       "stroke": '#f00',
+       "stroke-width": 10,
+       "preset": "fan",
+       "value": 65
+      });
+      bar.set(20,true);
+    </script>
   
   </div>
   <script src="librerias/emoji.js"></script>
