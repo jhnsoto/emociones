@@ -2,12 +2,13 @@
 <html>
 
   <head>
-    <script src="librerias/p5.min.js"></script>
-    <script src="librerias/loading-bar.js"></script>
-	<script src="index.js"></script>
+    <script src="librerias/p5.min.js"> </script>
+    <script type="module">
+      import * as d3 from "https://cdn.skypack.dev/d3@7";
+    </script>
+	  <script src="index.js"></script>
     <link rel="stylesheet" href="estilo.css">
-    <link rel="stylesheet" href="librerias/loading-bar.css">
-	<style type="text/css">
+	  <style type="text/css">
           body {margin:0; padding:0;} /* remove top and left whitespace */
           canvas {display:block;}    /* remove scrollbars */
           canvas:focus {outline:0;} /* remove blue outline around canvas */
@@ -21,18 +22,9 @@
   </div>
 
   <div id="emojis">
+    <div id="circle">
 
-    <div class="myBar label-center"></div>
-    <script>
-      let bar = new ldBar(".myBar", {
-       "stroke": '#f00',
-       "stroke-width": 10,
-       "preset": "fan",
-       "value": 65
-      });
-      bar.set(20,true);
-    </script>
-  
+    </div>
   </div>
   <script src="librerias/emoji.js"></script>
   </body>
