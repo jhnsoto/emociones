@@ -80,6 +80,10 @@ let emotionChecker = "na";
 
 let intensidadChecker = "na";
 
+let tiempoChecker = "na";
+
+let emojiNumber = 15;
+
 //Key handler 
 const Action = {
   bRojo() { console.log("rojo"); rojoHandler();},
@@ -151,7 +155,13 @@ function rondaHandler(){
 		break;
 
 		case 4:
-		rondaPrompt = "p5";
+		if(tiempoChecker === "na"){
+			ronda -= 1;
+		}
+		if(!(tiempoChecker === "na")){
+			document.getElementById("contenedor2").setAttribute("style", "visibility : visible;");
+			rondaPrompt = "p5";
+		}
 		break;
 	}
 }
@@ -169,7 +179,7 @@ function rojoHandler(){
 		document.getElementById("my_rect_frente").setAttribute("fill", "#ffb6af");
 		//emoji
 		emojisplosion({
-		emojiCount: 15,
+		emojiCount: emojiNumber,
 		emojis: ["😡"],
 		container: document.getElementById("emojis"),
 		className: "angry",
@@ -179,7 +189,7 @@ function rojoHandler(){
 		},
 		});
 		emojisplosion({
-		emojiCount: 15,
+		emojiCount: emojiNumber,
 		emojis: ["😡"],
 		container: document.getElementById("emojis"),
 		className: "angry",
@@ -193,6 +203,7 @@ function rojoHandler(){
 		case 2:
 		ronda -= 1;
 		emotionChecker = "na";
+		intensidadChecker = "na";
 		document.getElementById("my_rect_frente").setAttribute("width", "0");
 		rondaHandler();
 		break;
@@ -200,6 +211,7 @@ function rojoHandler(){
 		case 3:
 		ronda -= 1;
 		intensidadChecker = "na";
+		tiempoChecker = "na";
 		document.getElementById("my_rect_frente").setAttribute("width", "0");
 		rondaHandler();
 		break;
@@ -219,7 +231,7 @@ function amarilloHandler(){
 		document.getElementById("my_rect_frente").setAttribute("fill", "#f4f1bb");
 		//emoji
 		emojisplosion({
-		emojiCount: 15,
+		emojiCount: emojiNumber,
 		emojis: ["😃"],
 		container: document.getElementById("emojis"),
 		className: "happy",
@@ -229,7 +241,7 @@ function amarilloHandler(){
 		},
 		});
 		emojisplosion({
-		emojiCount: 15,
+		emojiCount: emojiNumber,
 		emojis: ["😃"],
 		container: document.getElementById("emojis"),
 		className: "happy",
@@ -258,6 +270,10 @@ function amarilloHandler(){
 			}
 		}
 		break;
+
+		case 3:
+		tiempoChecker = "check";
+		break;
 	}
 }
 
@@ -274,7 +290,7 @@ function azulHandler(){
 		document.getElementById("my_rect_frente").setAttribute("fill", "#b2e2f2");
 		//emoji
 		emojisplosion({
-		emojiCount: 15,
+		emojiCount: emojiNumber,
 		emojis: ["🙁"],
 		container: document.getElementById("emojis"),
 		className: "sad",
@@ -284,7 +300,7 @@ function azulHandler(){
 		},
 		});
 		emojisplosion({
-		emojiCount: 15,
+		emojiCount: emojiNumber,
 		emojis: ["🙁"],
 		container: document.getElementById("emojis"),
 		className: "sad",
@@ -313,6 +329,10 @@ function azulHandler(){
 			};
 		}
 		break;
+
+		case 3:
+		tiempoChecker = "check";
+		break;
 	}
 }
 
@@ -329,7 +349,7 @@ function verdeHandler(){
 		document.getElementById("my_rect_frente").setAttribute("fill", "#b0f2c2");
 		//emoji
 		emojisplosion({
-		emojiCount: 15,
+		emojiCount: emojiNumber,
 		emojis: ["👌"],
 		container: document.getElementById("emojis"),
 		className: "calm",
@@ -339,7 +359,7 @@ function verdeHandler(){
 		},
 		});
 		emojisplosion({
-		emojiCount: 15,
+		emojiCount: emojiNumber,
 		emojis: ["👌"],
 		container: document.getElementById("emojis"),
 		className: "calm",
@@ -368,6 +388,10 @@ function verdeHandler(){
 			}
 		};
 		break;
+
+		case 3:
+		tiempoChecker = "check";
+		break;
 	}
 }
 
@@ -376,105 +400,140 @@ function verdeHandler(){
 //
 //
 
-function setup() {
-  let cnv = createCanvas(windowWidth,windowHeight);
-  cnv.id("canvas");
-  cnv.parent("contenedor");
-  background(41);
+const s = p => {
+	p.setup = function(){
+		p.createCanvas(window.innerWidth,window.innerHeight);
 
-  //Ronda 1, 2 PantallaP
-  pantallaP["p1"] = createVideo('media/ronda1.mp4');
-  pantallaP["p1"].hide();
-  pantallaP["p1"].volume(0);
-  pantallaP["p1"].loop();
+		  //Ronda 1, 2 PantallaP
+		  pantallaP["p1"] = p.createVideo('media/ronda1.mp4');
+		  pantallaP["p1"].hide();
+		  pantallaP["p1"].volume(0);
+		  pantallaP["p1"].loop();
 
-  pantallaP["p2"] = createVideo('media/neutral.mp4');
-  pantallaP["p2"].hide();
-  pantallaP["p2"].volume(0);
-  pantallaP["p2"].loop();
+		  pantallaP["p2"] = p.createVideo('media/neutral.mp4');
+		  pantallaP["p2"].hide();
+		  pantallaP["p2"].volume(0);
+		  pantallaP["p2"].loop();
 
-  //Ronda 2 Emociones
-  //intensidad 2
-  pantallaP["p2.angry2"] = createVideo('media/emociones/Angry02.mp4');
-  pantallaP["p2.angry2"].hide();
-  pantallaP["p2.angry2"].volume(0);
-  pantallaP["p2.angry2"].loop();
+		  //Ronda 2 Emociones
+		  //intensidad 2
+		  pantallaP["p2.angry2"] = p.createVideo('media/emociones/Angry02.mp4');
+		  pantallaP["p2.angry2"].hide();
+		  pantallaP["p2.angry2"].volume(0);
+		  pantallaP["p2.angry2"].loop();
 
-  pantallaP["p2.happy2"] = createVideo('media/emociones/Happy02.mp4');
-  pantallaP["p2.happy2"].hide();
-  pantallaP["p2.happy2"].volume(0);
-  pantallaP["p2.happy2"].loop();
+		  pantallaP["p2.happy2"] = p.createVideo('media/emociones/Happy02.mp4');
+		  pantallaP["p2.happy2"].hide();
+		  pantallaP["p2.happy2"].volume(0);
+		  pantallaP["p2.happy2"].loop();
 
-  pantallaP["p2.sad2"] = createVideo('media/emociones/Sad02.mp4');
-  pantallaP["p2.sad2"].hide();
-  pantallaP["p2.sad2"].volume(0);
-  pantallaP["p2.sad2"].loop();
+		  pantallaP["p2.sad2"] = p.createVideo('media/emociones/Sad02.mp4');
+		  pantallaP["p2.sad2"].hide();
+		  pantallaP["p2.sad2"].volume(0);
+		  pantallaP["p2.sad2"].loop();
 
-  pantallaP["p2.calm2"] = createVideo('media/emociones/Calm02.mp4');
-  pantallaP["p2.calm2"].hide();
-  pantallaP["p2.calm2"].volume(0);
-  pantallaP["p2.calm2"].loop();
+		  pantallaP["p2.calm2"] = p.createVideo('media/emociones/Calm02.mp4');
+		  pantallaP["p2.calm2"].hide();
+		  pantallaP["p2.calm2"].volume(0);
+		  pantallaP["p2.calm2"].loop();
 
-  //Ronda 3 intensidad
-  //intesidad 1
-  pantallaP["p2.angry1"] = createVideo('media/emociones/Angry01.mp4');
-  pantallaP["p2.angry1"].hide();
-  pantallaP["p2.angry1"].volume(0);
-  pantallaP["p2.angry1"].loop();
+		  //Ronda 3 intensidad
+		  //intesidad 1
+		  pantallaP["p2.angry1"] = p.createVideo('media/emociones/Angry01.mp4');
+		  pantallaP["p2.angry1"].hide();
+		  pantallaP["p2.angry1"].volume(0);
+		  pantallaP["p2.angry1"].loop();
 
-  pantallaP["p2.happy1"] = createVideo('media/emociones/Happy01.mp4');
-  pantallaP["p2.happy1"].hide();
-  pantallaP["p2.happy1"].volume(0);
-  pantallaP["p2.happy1"].loop();
+		  pantallaP["p2.happy1"] = p.createVideo('media/emociones/Happy01.mp4');
+		  pantallaP["p2.happy1"].hide();
+		  pantallaP["p2.happy1"].volume(0);
+		  pantallaP["p2.happy1"].loop();
 
-  pantallaP["p2.sad1"] = createVideo('media/emociones/Sad01.mp4');
-  pantallaP["p2.sad1"].hide();
-  pantallaP["p2.sad1"].volume(0);
-  pantallaP["p2.sad1"].loop();
+		  pantallaP["p2.sad1"] = p.createVideo('media/emociones/Sad01.mp4');
+		  pantallaP["p2.sad1"].hide();
+		  pantallaP["p2.sad1"].volume(0);
+		  pantallaP["p2.sad1"].loop();
 
-  pantallaP["p2.calm1"] = createVideo('media/emociones/Calm01.mp4');
-  pantallaP["p2.calm1"].hide();
-  pantallaP["p2.calm1"].volume(0);
-  pantallaP["p2.calm1"].loop();
+		  pantallaP["p2.calm1"] = p.createVideo('media/emociones/Calm01.mp4');
+		  pantallaP["p2.calm1"].hide();
+		  pantallaP["p2.calm1"].volume(0);
+		  pantallaP["p2.calm1"].loop();
 
-  //intensidad 3
-  pantallaP["p2.angry3"] = createVideo('media/emociones/Angry03.mp4');
-  pantallaP["p2.angry3"].hide();
-  pantallaP["p2.angry3"].volume(0);
-  pantallaP["p2.angry3"].loop();
+		  //intensidad 3
+		  pantallaP["p2.angry3"] = p.createVideo('media/emociones/Angry03.mp4');
+		  pantallaP["p2.angry3"].hide();
+		  pantallaP["p2.angry3"].volume(0);
+		  pantallaP["p2.angry3"].loop();
 
-  pantallaP["p2.happy3"] = createVideo('media/emociones/Happy03.mp4');
-  pantallaP["p2.happy3"].hide();
-  pantallaP["p2.happy3"].volume(0);
-  pantallaP["p2.happy3"].loop();
+		  pantallaP["p2.happy3"] = p.createVideo('media/emociones/Happy03.mp4');
+		  pantallaP["p2.happy3"].hide();
+		  pantallaP["p2.happy3"].volume(0);
+		  pantallaP["p2.happy3"].loop();
 
-  pantallaP["p2.sad3"] = createVideo('media/emociones/Sad03.mp4');
-  pantallaP["p2.sad3"].hide();
-  pantallaP["p2.sad3"].volume(0);
-  pantallaP["p2.sad3"].loop();
+		  pantallaP["p2.sad3"] = p.createVideo('media/emociones/Sad03.mp4');
+		  pantallaP["p2.sad3"].hide();
+		  pantallaP["p2.sad3"].volume(0);
+		  pantallaP["p2.sad3"].loop();
 
-  pantallaP["p2.calm3"] = createVideo('media/emociones/Calm03.mp4');
-  pantallaP["p2.calm3"].hide();
-  pantallaP["p2.calm3"].volume(0);
-  pantallaP["p2.calm3"].loop();
+		  pantallaP["p2.calm3"] = p.createVideo('media/emociones/Calm03.mp4');
+		  pantallaP["p2.calm3"].hide();
+		  pantallaP["p2.calm3"].volume(0);
+		  pantallaP["p2.calm3"].loop();
 
   
-  //Ronda 1, 2 Prompt
-  prompt["p1"] = loadImage('media/prompt/prompt1.gif');
-  prompt["p2"] = loadImage('media/prompt/prompt2.gif');
-  prompt["p3"] = loadImage('media/prompt/prompt3.gif');
-  prompt["p4"] = loadImage('media/prompt/prompt4.gif');
-  prompt["p5"] = loadImage('media/prompt/prompt5.gif');
+		  //Ronda 1, 2 Prompt
+		  prompt["p1"] = p.loadImage('media/prompt/prompt1.gif');
+		  prompt["p2"] = p.loadImage('media/prompt/prompt2.gif');
+		  prompt["p3"] = p.loadImage('media/prompt/prompt3.gif');
+		  prompt["p4"] = p.loadImage('media/prompt/prompt4.gif');
+		  prompt["p5"] = p.loadImage('media/prompt/prompt5.gif');
+     }
+	 p.draw = function(){
+	  p.noTint();
+	  p.fill(255);
+	  p.rect(0,0,window.innerWidth,window.innerHeight);
+	  //pantallaP
+	  p.image(pantallaP[rondaPantalla], 0, 0, window.innerWidth,window.innerHeight); 
+	  p.tint(255, 200);
+	  //mensaje
+	  p.image(prompt[rondaPrompt], 0, 0, window.innerWidth,window.innerHeight);
+	 }
 }
 
-function draw() {
-  noTint();
-  fill(255);
-  rect(0,0,windowWidth,windowHeight);
-  //pantallaP
-  image(pantallaP[rondaPantalla], 0, 0, windowWidth, windowHeight); 
-  tint(255, 200);
-  //mensaje
-  image(prompt[rondaPrompt], 0, 0, windowWidth, windowHeight);
+new p5(s, "contenedor");
+
+const s2 = p => {
+	let video;
+	let vScale = 12;
+	p.setup = function(){
+		p.createCanvas(window.innerWidth,window.innerHeight);
+		p.pixelDensity(1);
+		video = p.createCapture(p.VIDEO);
+		video.size(window.innerWidth / vScale, window.innerHeight / vScale);
+		video.hide();
+		prompt["p5"] = p.loadImage('media/prompt/prompt5.gif');
+	}
+	p.draw = function(){
+		p.background(0);
+		video.loadPixels();
+		for (var y = 0; y < video.height; y++) {
+		for (var x = 0; x < video.width; x++) {
+			var index = (video.width - x + 1 + (y * video.width)) * 4;
+			var r = video.pixels[index + 0];
+			var g = video.pixels[index + 1];
+			var b = video.pixels[index + 2];
+			var bright = (r + g + b) / 3;
+			var w = p.map(bright, 0, 255, 0, vScale);
+			p.noStroke();
+			p.fill(255);
+			p.rectMode(p.CENTER);
+			p.rect(x * vScale, y * vScale, w, w);
+		}
+	    }
+		p.image(prompt["p5"], 0, 0, window.innerWidth,window.innerHeight);
+	}
 }
+
+new p5(s2, "contenedor2");
+
 
