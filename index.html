@@ -2,13 +2,11 @@
 <html>
 
   <head>
-    <script src="librerias/p5.min.js"> </script>
-    <script type="module">
-      import * as d3 from "https://cdn.skypack.dev/d3@7";
-    </script>
-	  <script src="index.js"></script>
+    <script src="librerias/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+	<script src="index.js"></script>
     <link rel="stylesheet" href="estilo.css">
-	  <style type="text/css">
+	<style type="text/css">
           body {margin:0; padding:0;} /* remove top and left whitespace */
           canvas {display:block;}    /* remove scrollbars */
           canvas:focus {outline:0;} /* remove blue outline around canvas */
@@ -22,10 +20,27 @@
   </div>
 
   <div id="emojis">
-    <div id="circle">
-
-    </div>
+  
   </div>
+
+  <div id="d3">
+  <svg width="100%" height="300px">
+    <g id="grupod3" style="opacity: 0.0;">
+      <rect
+        id="my_rect" x="50%" y="10%"
+        width="500px" height="50px"
+        fill="#555555" rx="25px" ry="25px" 
+        transform="translate(-250,0)"/>
+
+        <rect
+        id="my_rect_frente" x="50%" y="10%"
+        width="0px" height="35px" 
+        fill="#000" rx="17.5px" ry="17.5px" 
+        transform="translate(-242.5,7.5)"/>
+    </g>
+  </svg>
+  </div>
+
   <script src="librerias/emoji.js"></script>
   </body>
   

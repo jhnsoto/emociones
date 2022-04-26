@@ -1,4 +1,7 @@
+#d3,
+
 #emojis,
+
 #contenedor {
   width: 100%;
   height: 100%;
@@ -9,6 +12,10 @@
 
 #emojis {
   z-index: 10;
+}
+
+#d3 {
+  z-index: 15;
 }
 
 .angry{

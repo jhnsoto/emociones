@@ -1,12 +1,69 @@
-﻿// create svg element:
-var svg = d3.select("#circle").append("svg").attr("width", 200).attr("height", 200);
-// Add the path using this helper function
-svg.append('circle')
-  .attr('cx', 100)
-  .attr('cy', 100)
-  .attr('r', 50)
-  .attr('stroke', 'black')
-  .attr('fill', '#69a3b2');
+﻿//d3
+function estirar1(){
+intensidadChecker = "check";
+d3.select("#grupod3")
+  .transition()
+  .ease(d3.easeCubicInOut)
+  .duration(500)
+  .attr("style", "opacity: 0.5;")
+  .transition()
+  .duration(1000)
+  .attr("style", "opacity: 0.5;")
+  .transition()
+  .duration(500)
+  .attr("style", "opacity: 0;");
+
+d3.select("#my_rect_frente")
+  .transition()
+  .ease(d3.easeCubicInOut)
+  .duration(1000)
+  .attr("style", "filter: saturate(1);")
+  .attr("width", "161.6");
+}
+
+function estirar2(){
+intensidadChecker = "check";
+d3.select("#grupod3")
+  .transition()
+  .ease(d3.easeCubicInOut)
+  .duration(500)
+  .attr("style", "opacity: 0.5;")
+  .transition()
+  .duration(1000)
+  .attr("style", "opacity: 0.5;")
+  .transition()
+  .duration(500)
+  .attr("style", "opacity: 0;");
+
+d3.select("#my_rect_frente")
+  .transition()
+  .ease(d3.easeCubicInOut)
+  .duration(1000)
+  .attr("style", "filter: saturate(2);")
+  .attr("width", "323.3");
+}
+
+function estirar3(){
+intensidadChecker = "check";
+d3.select("#grupod3")
+  .transition()
+  .ease(d3.easeCubicInOut)
+  .duration(500)
+  .attr("style", "opacity: 0.5;")
+  .transition()
+  .duration(1000)
+  .attr("style", "opacity: 0.5;")
+  .transition()
+  .duration(500)
+  .attr("style", "opacity: 0;");
+
+d3.select("#my_rect_frente")
+  .transition()
+  .ease(d3.easeCubicInOut)
+  .duration(1000)
+  .attr("style", "filter: saturate(3);")
+  .attr("width", "485");
+}
 
 //Variables globales
 let pantallaP = {
@@ -20,6 +77,8 @@ let rondaPantalla = "p1";
 let rondaPrompt = "p1";
 
 let emotionChecker = "na";
+
+let intensidadChecker = "na";
 
 //Key handler 
 const Action = {
@@ -62,13 +121,33 @@ function rondaHandler(){
 		case 2:
 		if(emotionChecker==="na"){
 		ronda -= 1;
-		}else{
+		}
+		if(!(emotionChecker==="na")){
 		rondaPrompt = "p3";
-		};
+		switch(emotionChecker){
+			case "angry":
+			rondaPantalla = "p2.angry2";
+			break;
+			case "happy":
+			rondaPantalla = "p2.happy2";
+			break;
+			case "sad":
+			rondaPantalla = "p2.sad2";
+			break;
+			case "calm":
+			rondaPantalla = "p2.calm2";
+			break;
+		}
+		}
 		break;
 
 		case 3:
+		if(intensidadChecker==="na"){
+		ronda -= 1;
+		}
+		if(!(intensidadChecker==="na")){
 		rondaPrompt = "p4";
+		}
 		break;
 
 		case 4:
@@ -81,12 +160,13 @@ function rondaHandler(){
 function rojoHandler(){
 	switch(ronda){
 		case 0:
-		console.log("sfx")
+		console.log("sfx");
 		break;
 
 		case 1:
 		rondaPantalla = "p2.angry2";
 		emotionChecker = "angry";
+		document.getElementById("my_rect_frente").setAttribute("fill", "#ffb6af");
 		//emoji
 		emojisplosion({
 		emojiCount: 15,
@@ -113,6 +193,14 @@ function rojoHandler(){
 		case 2:
 		ronda -= 1;
 		emotionChecker = "na";
+		document.getElementById("my_rect_frente").setAttribute("width", "0");
+		rondaHandler();
+		break;
+
+		case 3:
+		ronda -= 1;
+		intensidadChecker = "na";
+		document.getElementById("my_rect_frente").setAttribute("width", "0");
 		rondaHandler();
 		break;
 	}
@@ -122,12 +210,13 @@ function rojoHandler(){
 function amarilloHandler(){
 	switch(ronda){
 		case 0:
-		console.log("sfx")
+		console.log("sfx");
 		break;
 
 		case 1:
 		rondaPantalla = "p2.happy2";
 		emotionChecker = "happy";
+		document.getElementById("my_rect_frente").setAttribute("fill", "#f4f1bb");
 		//emoji
 		emojisplosion({
 		emojiCount: 15,
@@ -152,6 +241,7 @@ function amarilloHandler(){
 		break;
 
 		case 2:{
+		estirar1();
 			switch(emotionChecker){
 				case "angry":
 				rondaPantalla = "p2.angry1";
@@ -175,12 +265,13 @@ function amarilloHandler(){
 function azulHandler(){
 	switch(ronda){
 		case 0:
-		console.log("sfx")
+		console.log("sfx");
 		break;
 
 		case 1:
 		rondaPantalla = "p2.sad2";
 		emotionChecker = "sad";
+		document.getElementById("my_rect_frente").setAttribute("fill", "#b2e2f2");
 		//emoji
 		emojisplosion({
 		emojiCount: 15,
@@ -205,6 +296,7 @@ function azulHandler(){
 		break;
 
 		case 2:{
+		estirar2();
 			switch(emotionChecker){
 				case "angry":
 				rondaPantalla = "p2.angry2";
@@ -234,6 +326,7 @@ function verdeHandler(){
 		case 1:
 		rondaPantalla = "p2.calm2";
 		emotionChecker = "calm";
+		document.getElementById("my_rect_frente").setAttribute("fill", "#b0f2c2");
 		//emoji
 		emojisplosion({
 		emojiCount: 15,
@@ -258,6 +351,7 @@ function verdeHandler(){
 		break;
 
 		case 2:{
+		estirar3();
 			switch(emotionChecker){
 				case "angry":
 				rondaPantalla = "p2.angry3";
