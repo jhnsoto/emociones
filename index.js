@@ -1,4 +1,10 @@
-﻿//d3
+﻿//local storage
+localStorage.setItem('r', '0');
+localStorage.setItem('g', '0');
+localStorage.setItem('b', '0');
+localStorage.setItem('bool', 'false');
+
+//d3
 function estirar1(){
 intensidadChecker = "check";
 d3.select("#grupod3")
@@ -76,6 +82,8 @@ let rondaPantalla = "p1";
 
 let rondaPrompt = "p1";
 
+let rondaPrompt2 = "p5";
+
 let emotionChecker = "na";
 
 let intensidadChecker = "na";
@@ -83,6 +91,8 @@ let intensidadChecker = "na";
 let tiempoChecker = "na";
 
 let emojiNumber = 15;
+
+let tiempoPregunta = 3000;
 
 //Key handler 
 const Action = {
@@ -118,8 +128,10 @@ function rondaHandler(){
 		break;
 
 		case 1:
-		rondaPantalla = "p2";
+		rondaPantalla = "p1";
 		rondaPrompt = "p2";
+		setTimeout(()=>{rondaPrompt = "p2.5";}, tiempoPregunta);
+		localStorage.setItem('bool', 'true');
 		break;
 
 		case 2:
@@ -128,6 +140,7 @@ function rondaHandler(){
 		}
 		if(!(emotionChecker==="na")){
 		rondaPrompt = "p3";
+		setTimeout(()=>{rondaPrompt = "p3.5";}, tiempoPregunta);
 		switch(emotionChecker){
 			case "angry":
 			rondaPantalla = "p2.angry2";
@@ -151,6 +164,7 @@ function rondaHandler(){
 		}
 		if(!(intensidadChecker==="na")){
 		rondaPrompt = "p4";
+		setTimeout(()=>{rondaPrompt = "p4.5";}, tiempoPregunta);
 		}
 		break;
 
@@ -160,7 +174,7 @@ function rondaHandler(){
 		}
 		if(!(tiempoChecker === "na")){
 			document.getElementById("contenedor2").setAttribute("style", "visibility : visible;");
-			rondaPrompt = "p5";
+			setTimeout(()=>{rondaPrompt2 = "p5.5";}, tiempoPregunta);
 		}
 		break;
 	}
@@ -176,6 +190,9 @@ function rojoHandler(){
 		case 1:
 		rondaPantalla = "p2.angry2";
 		emotionChecker = "angry";
+		localStorage.setItem('r', '241');
+		localStorage.setItem('g', '203');
+		localStorage.setItem('b', '196');
 		document.getElementById("my_rect_frente").setAttribute("fill", "#ffb6af");
 		//emoji
 		emojisplosion({
@@ -202,6 +219,9 @@ function rojoHandler(){
 
 		case 2:
 		ronda -= 1;
+		localStorage.setItem('r', '0');
+		localStorage.setItem('g', '0');
+		localStorage.setItem('b', '0');
 		emotionChecker = "na";
 		intensidadChecker = "na";
 		document.getElementById("my_rect_frente").setAttribute("width", "0");
@@ -212,6 +232,28 @@ function rojoHandler(){
 		ronda -= 1;
 		intensidadChecker = "na";
 		tiempoChecker = "na";
+		switch(emotionChecker){
+				case "angry":
+				localStorage.setItem('r', '241');
+				localStorage.setItem('g', '203');
+				localStorage.setItem('b', '196');
+				break;
+				case "happy":
+				localStorage.setItem('r', '243');
+				localStorage.setItem('g', '238');
+				localStorage.setItem('b', '198');
+				break;
+				case "sad":
+				localStorage.setItem('r', '197');
+				localStorage.setItem('g', '223');
+				localStorage.setItem('b', '242');
+				break;
+				case "calm": 
+				localStorage.setItem('r', '205');
+				localStorage.setItem('g', '242');
+				localStorage.setItem('b', '195');
+				break;
+		};
 		document.getElementById("my_rect_frente").setAttribute("width", "0");
 		rondaHandler();
 		break;
@@ -228,6 +270,9 @@ function amarilloHandler(){
 		case 1:
 		rondaPantalla = "p2.happy2";
 		emotionChecker = "happy";
+		localStorage.setItem('r', '243');
+		localStorage.setItem('g', '238');
+		localStorage.setItem('b', '198');
 		document.getElementById("my_rect_frente").setAttribute("fill", "#f4f1bb");
 		//emoji
 		emojisplosion({
@@ -257,15 +302,27 @@ function amarilloHandler(){
 			switch(emotionChecker){
 				case "angry":
 				rondaPantalla = "p2.angry1";
+				localStorage.setItem('r', '245');
+				localStorage.setItem('g', '214');
+				localStorage.setItem('b', '192');
 				break;
 				case "happy":
 				rondaPantalla = "p2.happy1";
+				localStorage.setItem('r', '246');
+				localStorage.setItem('g', '244');
+				localStorage.setItem('b', '217');
 				break;
 				case "sad":
 				rondaPantalla = "p2.sad1";
+				localStorage.setItem('r', '213');
+				localStorage.setItem('g', '231');
+				localStorage.setItem('b', '245');
 				break;
 				case "calm": 
 				rondaPantalla = "p2.calm1";
+				localStorage.setItem('r', '218');
+				localStorage.setItem('g', '244');
+				localStorage.setItem('b', '209');
 				break;
 			}
 		}
@@ -287,6 +344,9 @@ function azulHandler(){
 		case 1:
 		rondaPantalla = "p2.sad2";
 		emotionChecker = "sad";
+		localStorage.setItem('r', '197');
+		localStorage.setItem('g', '223');
+		localStorage.setItem('b', '242');
 		document.getElementById("my_rect_frente").setAttribute("fill", "#b2e2f2");
 		//emoji
 		emojisplosion({
@@ -316,15 +376,27 @@ function azulHandler(){
 			switch(emotionChecker){
 				case "angry":
 				rondaPantalla = "p2.angry2";
+				localStorage.setItem('r', '241');
+				localStorage.setItem('g', '203');
+				localStorage.setItem('b', '196');
 				break;
 				case "happy":
 				rondaPantalla = "p2.happy2";
+				localStorage.setItem('r', '243');
+				localStorage.setItem('g', '238');
+				localStorage.setItem('b', '198');
 				break;
 				case "sad":
 				rondaPantalla = "p2.sad2";
+				localStorage.setItem('r', '197');
+				localStorage.setItem('g', '223');
+				localStorage.setItem('b', '242');
 				break;
 				case "calm": 
 				rondaPantalla = "p2.calm2";
+				localStorage.setItem('r', '205');
+				localStorage.setItem('g', '242');
+				localStorage.setItem('b', '195');
 				break;
 			};
 		}
@@ -346,6 +418,9 @@ function verdeHandler(){
 		case 1:
 		rondaPantalla = "p2.calm2";
 		emotionChecker = "calm";
+		localStorage.setItem('r', '205');
+		localStorage.setItem('g', '242');
+		localStorage.setItem('b', '195');
 		document.getElementById("my_rect_frente").setAttribute("fill", "#b0f2c2");
 		//emoji
 		emojisplosion({
@@ -375,15 +450,27 @@ function verdeHandler(){
 			switch(emotionChecker){
 				case "angry":
 				rondaPantalla = "p2.angry3";
+				localStorage.setItem('r', '251');
+				localStorage.setItem('g', '198');
+				localStorage.setItem('b', '187');
 				break;
 				case "happy":
 				rondaPantalla = "p2.happy3";
+				localStorage.setItem('r', '239');
+				localStorage.setItem('g', '233');
+				localStorage.setItem('b', '182');
 				break;
 				case "sad":
 				rondaPantalla = "p2.sad3";
+				localStorage.setItem('r', '181');
+				localStorage.setItem('g', '218');
+				localStorage.setItem('b', '239');
 				break;
 				case "calm": 
 				rondaPantalla = "p2.calm3";
+				localStorage.setItem('r', '195');
+				localStorage.setItem('g', '239');
+				localStorage.setItem('b', '181');
 				break;
 			}
 		};
@@ -405,15 +492,10 @@ const s = p => {
 		p.createCanvas(window.innerWidth,window.innerHeight);
 
 		  //Ronda 1, 2 PantallaP
-		  pantallaP["p1"] = p.createVideo('media/ronda1.mp4');
+		  pantallaP["p1"] = p.createVideo('media/neutral.mp4');
 		  pantallaP["p1"].hide();
 		  pantallaP["p1"].volume(0);
 		  pantallaP["p1"].loop();
-
-		  pantallaP["p2"] = p.createVideo('media/neutral.mp4');
-		  pantallaP["p2"].hide();
-		  pantallaP["p2"].volume(0);
-		  pantallaP["p2"].loop();
 
 		  //Ronda 2 Emociones
 		  //intensidad 2
@@ -484,9 +566,11 @@ const s = p => {
 		  //Ronda 1, 2 Prompt
 		  prompt["p1"] = p.loadImage('media/prompt/prompt1.gif');
 		  prompt["p2"] = p.loadImage('media/prompt/prompt2.gif');
+		  prompt["p2.5"] = p.loadImage('media/prompt/prompt2.5.gif');
 		  prompt["p3"] = p.loadImage('media/prompt/prompt3.gif');
+		  prompt["p3.5"] = p.loadImage('media/prompt/prompt3.5.gif');
 		  prompt["p4"] = p.loadImage('media/prompt/prompt4.gif');
-		  prompt["p5"] = p.loadImage('media/prompt/prompt5.gif');
+		  prompt["p4.5"] = p.loadImage('media/prompt/prompt4.5.gif');
      }
 	 p.draw = function(){
 	  p.noTint();
@@ -512,9 +596,10 @@ const s2 = p => {
 		video.size(window.innerWidth / vScale, window.innerHeight / vScale);
 		video.hide();
 		prompt["p5"] = p.loadImage('media/prompt/prompt5.gif');
+		prompt["p5.5"] = p.loadImage('media/prompt/prompt5.5.gif');
 	}
 	p.draw = function(){
-		p.background(0);
+		p.background(parseInt(localStorage.getItem('r')),parseInt(localStorage.getItem('g')),parseInt(localStorage.getItem('b')));
 		video.loadPixels();
 		for (var y = 0; y < video.height; y++) {
 		for (var x = 0; x < video.width; x++) {
@@ -530,7 +615,7 @@ const s2 = p => {
 			p.rect(x * vScale, y * vScale, w, w);
 		}
 	    }
-		p.image(prompt["p5"], 0, 0, window.innerWidth,window.innerHeight);
+		p.image(prompt[rondaPrompt2], 0, 0, window.innerWidth,window.innerHeight);
 	}
 }
 
