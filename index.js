@@ -4,7 +4,88 @@ localStorage.setItem('g', '0');
 localStorage.setItem('b', '0');
 localStorage.setItem('bool', 'false');
 
-//d3
+//d3 reloj
+function pocoTiempo(){
+d3.select("#granopoco").attr("cy", "350px");
+d3.select("#granopoco2").attr("cy", "350px");
+d3.select("#relojpoco")
+  .transition()
+  .ease(d3.easeCubicInOut)
+  .duration(500)
+  .attr("style", "opacity: 0.5;")
+  .transition()
+  .duration(1000)
+  .attr("style", "opacity: 0.5;")
+  .transition()
+  .duration(500)
+  .attr("style", "opacity: 0;");
+
+d3.select("#relojpoco2")
+  .transition()
+  .ease(d3.easeCubicInOut)
+  .duration(500)
+  .attr("style", "opacity: 0.5;")
+  .transition()
+  .duration(1000)
+  .attr("style", "opacity: 0.5;")
+  .transition()
+  .duration(500)
+  .attr("style", "opacity: 0;");
+
+d3.select("#granopoco")
+  .transition()
+  .ease(d3.easeCubicInOut)
+  .duration(1000)
+  .attr("cy", "750px");
+
+d3.select("#granopoco2")
+  .transition()
+  .ease(d3.easeCubicInOut)
+  .duration(1000)
+  .attr("cy", "750px");
+}
+
+function muchoTiempo(){
+d3.select("#granopoco3").attr("cy", "350px");
+d3.select("#granopoco4").attr("cy", "350px");
+d3.select("#relojmucho")
+  .transition()
+  .ease(d3.easeCubicInOut)
+  .duration(500)
+  .attr("style", "opacity: 0.5;")
+  .transition()
+  .duration(1000)
+  .attr("style", "opacity: 0.5;")
+  .transition()
+  .duration(500)
+  .attr("style", "opacity: 0;");
+
+d3.select("#relojmucho2")
+  .transition()
+  .ease(d3.easeCubicInOut)
+  .duration(500)
+  .attr("style", "opacity: 0.5;")
+  .transition()
+  .duration(1000)
+  .attr("style", "opacity: 0.5;")
+  .transition()
+  .duration(500)
+  .attr("style", "opacity: 0;");
+
+d3.select("#granopoco3")
+  .transition()
+  .ease(d3.easeCubicInOut)
+  .duration(1000)
+  .attr("cy", "750px");
+
+d3.select("#granopoco4")
+  .transition()
+  .ease(d3.easeCubicInOut)
+  .duration(1000)
+  .attr("cy", "750px");
+}
+
+//d3 barra
 function estirar1(){
 intensidadChecker = "check";
 d3.select("#grupod3")
@@ -94,6 +175,14 @@ let emojiNumber = 15;
 
 let tiempoPregunta = 3000;
 
+let relojes = ["base", "arena", "base2", "arena2", "base3", "arena3", "base4", "arena4"]
+
+//expresiones de funcion
+let prompt25; 
+let prompt35;
+let prompt45;
+let prompt55;
+
 //Key handler 
 const Action = {
   bRojo() { console.log("rojo"); rojoHandler();},
@@ -130,7 +219,7 @@ function rondaHandler(){
 		case 1:
 		rondaPantalla = "p1";
 		rondaPrompt = "p2";
-		setTimeout(()=>{rondaPrompt = "p2.5";}, tiempoPregunta);
+		prompt25 = setTimeout(()=>{rondaPrompt = "p2.5";}, tiempoPregunta);
 		localStorage.setItem('bool', 'true');
 		break;
 
@@ -140,7 +229,7 @@ function rondaHandler(){
 		}
 		if(!(emotionChecker==="na")){
 		rondaPrompt = "p3";
-		setTimeout(()=>{rondaPrompt = "p3.5";}, tiempoPregunta);
+		prompt35 = setTimeout(()=>{rondaPrompt = "p3.5";}, tiempoPregunta);
 		switch(emotionChecker){
 			case "angry":
 			rondaPantalla = "p2.angry2";
@@ -164,7 +253,7 @@ function rondaHandler(){
 		}
 		if(!(intensidadChecker==="na")){
 		rondaPrompt = "p4";
-		setTimeout(()=>{rondaPrompt = "p4.5";}, tiempoPregunta);
+		prompt45 = setTimeout(()=>{rondaPrompt = "p4.5";}, tiempoPregunta);
 		}
 		break;
 
@@ -174,7 +263,7 @@ function rondaHandler(){
 		}
 		if(!(tiempoChecker === "na")){
 			document.getElementById("contenedor2").setAttribute("style", "visibility : visible;");
-			setTimeout(()=>{rondaPrompt2 = "p5.5";}, tiempoPregunta);
+			prompt55 = setTimeout(()=>{rondaPrompt2 = "p5.5";}, tiempoPregunta);
 		}
 		break;
 	}
@@ -193,7 +282,7 @@ function rojoHandler(){
 		localStorage.setItem('r', '241');
 		localStorage.setItem('g', '203');
 		localStorage.setItem('b', '196');
-		document.getElementById("my_rect_frente").setAttribute("fill", "#ffb6af");
+		document.getElementById("my_rect_frente").setAttribute("fill", "#ffb6af"); 
 		//emoji
 		emojisplosion({
 		emojiCount: emojiNumber,
@@ -219,6 +308,10 @@ function rojoHandler(){
 
 		case 2:
 		ronda -= 1;
+		clearTimeout(prompt25);
+		clearTimeout(prompt35);
+		clearTimeout(prompt45);
+		clearTimeout(prompt55);
 		localStorage.setItem('r', '0');
 		localStorage.setItem('g', '0');
 		localStorage.setItem('b', '0');
@@ -230,6 +323,10 @@ function rojoHandler(){
 
 		case 3:
 		ronda -= 1;
+		clearTimeout(prompt25);
+		clearTimeout(prompt35);
+		clearTimeout(prompt45);
+		clearTimeout(prompt55);
 		intensidadChecker = "na";
 		tiempoChecker = "na";
 		switch(emotionChecker){
@@ -297,7 +394,7 @@ function amarilloHandler(){
 		});
 		break;
 
-		case 2:{
+		case 2:
 		estirar1();
 			switch(emotionChecker){
 				case "angry":
@@ -325,10 +422,10 @@ function amarilloHandler(){
 				localStorage.setItem('b', '209');
 				break;
 			}
-		}
 		break;
 
 		case 3:
+		pocoTiempo();
 		tiempoChecker = "check";
 		break;
 	}
@@ -371,7 +468,7 @@ function azulHandler(){
 		});
 		break;
 
-		case 2:{
+		case 2:
 		estirar2();
 			switch(emotionChecker){
 				case "angry":
@@ -398,11 +495,11 @@ function azulHandler(){
 				localStorage.setItem('g', '242');
 				localStorage.setItem('b', '195');
 				break;
-			};
-		}
+			}
 		break;
 
 		case 3:
+		muchoTiempo();
 		tiempoChecker = "check";
 		break;
 	}
@@ -445,7 +542,7 @@ function verdeHandler(){
 		});
 		break;
 
-		case 2:{
+		case 2:
 		estirar3();
 			switch(emotionChecker){
 				case "angry":
@@ -473,11 +570,28 @@ function verdeHandler(){
 				localStorage.setItem('b', '181');
 				break;
 			}
-		};
 		break;
 
 		case 3:
 		tiempoChecker = "check";
+		emojisplosion({
+		emojiCount: emojiNumber,
+		emojis: ["❔"],
+		container: document.getElementById("emojis"),
+		position: {
+		x: innerWidth*(1/4),
+		y: innerHeight/2,
+		},
+		});
+		emojisplosion({
+		emojiCount: emojiNumber,
+		emojis: ["❔"],
+		container: document.getElementById("emojis"),
+		position: {
+		x: innerWidth*(3/4),
+		y: innerHeight/2,
+		},
+		});
 		break;
 	}
 }

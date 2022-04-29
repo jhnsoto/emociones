@@ -39,3 +39,11 @@
 .calm{
   filter: hue-rotate(90deg);
 }
+
+#d3_inner,#d3_outer,#d3_inner2,#d3_outer2{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
