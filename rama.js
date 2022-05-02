@@ -12,7 +12,10 @@ function setup() {
 
 function draw() {
   let mirrorChecker = localStorage.getItem('bool');
-  background(51);
+  let mirrorColorR = localStorage.getItem('r');
+  let mirrorColorG = localStorage.getItem('g');
+  let mirrorColorB = localStorage.getItem('b');
+  background(mirrorColorR,mirrorColorG,mirrorColorB);
   video.loadPixels();
   if(mirrorChecker === "true"){
       for (var y = 0; y < video.height; y++) {
