@@ -3,6 +3,9 @@ localStorage.setItem('r', '0');
 localStorage.setItem('g', '0');
 localStorage.setItem('b', '0');
 localStorage.setItem('bool', 'false');
+localStorage.setItem('retro', 'false');
+localStorage.setItem('x', "0");
+localStorage.setItem('y', "0");
 
 //d3 reloj
 function pocoTiempo(){
@@ -153,6 +156,8 @@ d3.select("#my_rect_frente")
 }
 
 //Variables globales
+let doit = false;
+let alpha = 255;
 let pantallaP = {
 };
 let prompt = {
@@ -171,11 +176,37 @@ let intensidadChecker = "na";
 
 let tiempoChecker = "na";
 
-let emojiNumber = 15;
+let emojiNumber = 7;
 
-let tiempoPregunta = 3000;
+let tiempoPregunta = 2000;
 
 let relojes = ["base", "arena", "base2", "arena2", "base3", "arena3", "base4", "arena4"];
+
+//reseteo
+
+//si avanzar deber detener el timer al que avanzare
+
+function reset(){
+ronda = 0;
+rondaPantalla = "p0";
+rondaPrompt = "p1";
+rondaPrompt2 = "p5";
+
+emotionChecker = "na";
+intensidadChecker = "na";
+tiempoChecker = "na";
+
+localStorage.setItem('r', '0');
+localStorage.setItem('g', '0');
+localStorage.setItem('b', '0');
+localStorage.setItem('retro', 'false');
+
+alpha = 255;
+
+document.getElementById("my_rect_frente").setAttribute("width", "0");
+
+rondaHandler();
+}
 
 //Mapeo
 
@@ -195,7 +226,7 @@ let cuentaX = 0;
 let cuentaY = 0;
 
 function map_range(value, high1) {
-    return (3) * (value) / (high1);
+ return Math.ceil(value/high1);
 }
 
 let mapping = 'media/neutral.mp4';
@@ -251,6 +282,7 @@ function rondaHandler(){
 		ronda -= 1;
 		}
 		if(!(emotionChecker==="na")){
+		clearTimeout(prompt25);
 		rondaPrompt = "p3";
 		prompt35 = setTimeout(()=>{rondaPrompt = "p3.5";}, tiempoPregunta);
 		switch(emotionChecker){
@@ -275,6 +307,7 @@ function rondaHandler(){
 		ronda -= 1;
 		}
 		if(!(intensidadChecker==="na")){
+		clearTimeout(prompt35);
 		rondaPrompt = "p4";
 		prompt45 = setTimeout(()=>{rondaPrompt = "p4.5";}, tiempoPregunta);
 		}
@@ -285,16 +318,28 @@ function rondaHandler(){
 			ronda -= 1;
 		}
 		if(!(tiempoChecker === "na")){
+			clearTimeout(prompt45);
 			document.getElementById("contenedor2").setAttribute("style", "visibility : visible;");
-			prompt55 = setTimeout(()=>{rondaPrompt2 = "p5.5";}, tiempoPregunta);
+			prompt55 = setTimeout(()=>{rondaPrompt2 = "p5.5";}, 4000);
 		}
 		break;
 
 		case 5:
+		clearTimeout(prompt55);
+		document.getElementById("contenedor2").setAttribute("style", "visibility : hidden;");
+		alpha = 0;
+		localStorage.setItem('retro', 'true');
+		localStorage.setItem('bool', 'false');
+		localStorage.setItem('r',"255");
+		localStorage.setItem('g',"255");
+		localStorage.setItem('b',"255");
+		rondaPrompt = "p6";
+		reinicio = setTimeout(reset, 7000);
+
 		cuentaPersonas += 1;
-		switch emotionChecker{
+		switch (emotionChecker){
 			case "angry":
-			switch intensidadChecker{
+			switch (intensidadChecker){
 				case "checkUno":
 				cuentaAngry += 1;
 				break;
@@ -303,15 +348,14 @@ function rondaHandler(){
 				cuentaAngry += 2;
 				break;
 
-				case "checkTres";
+				case "checkTres":
 				cuentaAngry += 3;
 				break;
-			}
-			//cuenta demas emociones
+			};
 			break;
 
 			case "happy":
-			switch intensidadChecker{
+			switch (intensidadChecker){
 				case "checkUno":
 				cuentaHappy += 1;
 				break;
@@ -320,14 +364,14 @@ function rondaHandler(){
 				cuentaHappy += 2;
 				break;
 
-				case "checkTres";
+				case "checkTres":
 				cuentaHappy += 3;
 				break;
 			}
 			break;
 
 			case "sad":
-			switch intensidadChecker{
+			switch (intensidadChecker){
 				case "checkUno":
 				cuentaSad += 1;
 				break;
@@ -336,14 +380,14 @@ function rondaHandler(){
 				cuentaSad += 2;
 				break;
 
-				case "checkTres";
+				case "checkTres":
 				cuentaSad += 3;
 				break;
 			}
 			break;
 
 			case "calm":
-			switch intensidadChecker{
+			switch (intensidadChecker){
 				case "checkUno":
 				cuentaCalm += 1;
 				break;
@@ -352,18 +396,39 @@ function rondaHandler(){
 				cuentaCalm += 2;
 				break;
 
-				case "checkTres";
+				case "checkTres":
 				cuentaCalm += 3;
 				break;
 			}
 			break;
-		}
+		};
 		cuentaAngryMap = map_range(cuentaAngry,cuentaPersonas);
 		cuentaHappyMap = map_range(cuentaHappy,cuentaPersonas);
 		cuentaSadMap = map_range(cuentaSad,cuentaPersonas);
 		cuentaCalmMap = map_range(cuentaCalm,cuentaPersonas);
-		cuentaX = cuentaAngryMap - cuentaCalmMap;
+		cuentaX = cuentaCalmMap - cuentaAngryMap;
 		cuentaY = cuentaHappyMap - cuentaSadMap;
+		localStorage.setItem('x', cuentaX.toString());
+		localStorage.setItem('y', cuentaY.toString());
+		
+		//DEBUG
+		console.log("personas " + cuentaPersonas);
+
+		console.log("enojados " + cuentaAngry);
+		console.log("felices " + cuentaHappy);
+		console.log("tristes " + cuentaSad);
+		console.log("calmados " + cuentaCalm);
+
+		console.log("remap enojados " + cuentaAngryMap);
+		console.log("remap felices " + cuentaHappyMap);
+		console.log("remap tristes " + cuentaSadMap);
+		console.log("remap calmados " + cuentaCalmMap);
+
+		console.log("x " + cuentaX);
+		console.log("y " + cuentaY);
+		console.log(localStorage.getItem("x"));
+		console.log(localStorage.getItem("y"));
+		doit = true;
 		break;
 	}
 }
@@ -384,6 +449,22 @@ function rojoHandler(){
 		document.getElementById("my_rect_frente").setAttribute("fill", "#ffb6af"); 
 		//emoji
 		emojisplosion({
+		physics:{
+			initialVelocities: {
+				rotation: {
+					max: 7,
+					min: -7,
+				},
+				x: {
+					max: 3,
+					min: -3,
+				},
+				y: {
+					max: 0,
+					min: -6,
+				},
+			},
+		},
 		emojiCount: emojiNumber,
 		emojis: ["😡"],
 		container: document.getElementById("emojis"),
@@ -394,6 +475,22 @@ function rojoHandler(){
 		},
 		});
 		emojisplosion({
+		physics:{
+			initialVelocities: {
+				rotation: {
+					max: 7,
+					min: -7,
+				},
+				x: {
+					max: 3,
+					min: -3,
+				},
+				y: {
+					max: 0,
+					min: -6,
+				},
+			},
+		},
 		emojiCount: emojiNumber,
 		emojis: ["😡"],
 		container: document.getElementById("emojis"),
@@ -472,6 +569,22 @@ function amarilloHandler(){
 		document.getElementById("my_rect_frente").setAttribute("fill", "#f4f1bb");
 		//emoji
 		emojisplosion({
+		physics:{
+			initialVelocities: {
+				rotation: {
+					max: 7,
+					min: -7,
+				},
+				x: {
+					max: 3,
+					min: -3,
+				},
+				y: {
+					max: 0,
+					min: -6,
+				},
+			},
+		},
 		emojiCount: emojiNumber,
 		emojis: ["😃"],
 		container: document.getElementById("emojis"),
@@ -482,6 +595,22 @@ function amarilloHandler(){
 		},
 		});
 		emojisplosion({
+		physics:{
+			initialVelocities: {
+				rotation: {
+					max: 7,
+					min: -7,
+				},
+				x: {
+					max: 3,
+					min: -3,
+				},
+				y: {
+					max: 0,
+					min: -6,
+				},
+			},
+		},
 		emojiCount: emojiNumber,
 		emojis: ["😃"],
 		container: document.getElementById("emojis"),
@@ -546,6 +675,22 @@ function azulHandler(){
 		document.getElementById("my_rect_frente").setAttribute("fill", "#b2e2f2");
 		//emoji
 		emojisplosion({
+		physics:{
+			initialVelocities: {
+				rotation: {
+					max: 7,
+					min: -7,
+				},
+				x: {
+					max: 3,
+					min: -3,
+				},
+				y: {
+					max: 0,
+					min: -6,
+				},
+			},
+		},
 		emojiCount: emojiNumber,
 		emojis: ["🙁"],
 		container: document.getElementById("emojis"),
@@ -556,6 +701,22 @@ function azulHandler(){
 		},
 		});
 		emojisplosion({
+		physics:{
+			initialVelocities: {
+				rotation: {
+					max: 7,
+					min: -7,
+				},
+				x: {
+					max: 3,
+					min: -3,
+				},
+				y: {
+					max: 0,
+					min: -6,
+				},
+			},
+		},
 		emojiCount: emojiNumber,
 		emojis: ["🙁"],
 		container: document.getElementById("emojis"),
@@ -620,6 +781,22 @@ function verdeHandler(){
 		document.getElementById("my_rect_frente").setAttribute("fill", "#b0f2c2");
 		//emoji
 		emojisplosion({
+		physics:{
+			initialVelocities: {
+				rotation: {
+					max: 7,
+					min: -7,
+				},
+				x: {
+					max: 3,
+					min: -3,
+				},
+				y: {
+					max: 0,
+					min: -6,
+				},
+			},
+		},
 		emojiCount: emojiNumber,
 		emojis: ["👌"],
 		container: document.getElementById("emojis"),
@@ -630,6 +807,22 @@ function verdeHandler(){
 		},
 		});
 		emojisplosion({
+		physics:{
+			initialVelocities: {
+				rotation: {
+					max: 7,
+					min: -7,
+				},
+				x: {
+					max: 3,
+					min: -3,
+				},
+				y: {
+					max: 0,
+					min: -6,
+				},
+			},
+		},
 		emojiCount: emojiNumber,
 		emojis: ["👌"],
 		container: document.getElementById("emojis"),
@@ -674,6 +867,22 @@ function verdeHandler(){
 		case 3:
 		tiempoChecker = "checkDuda";
 		emojisplosion({
+		physics:{
+			initialVelocities: {
+				rotation: {
+					max: 7,
+					min: -7,
+				},
+				x: {
+					max: 3,
+					min: -3,
+				},
+				y: {
+					max: 0,
+					min: -6,
+				},
+			},
+		},
 		emojiCount: emojiNumber,
 		emojis: ["❔"],
 		container: document.getElementById("emojis"),
@@ -683,6 +892,22 @@ function verdeHandler(){
 		},
 		});
 		emojisplosion({
+		physics:{
+			initialVelocities: {
+				rotation: {
+					max: 7,
+					min: -7,
+				},
+				x: {
+					max: 3,
+					min: -3,
+				},
+				y: {
+					max: 0,
+					min: -6,
+				},
+			},
+		},
 		emojiCount: emojiNumber,
 		emojis: ["❔"],
 		container: document.getElementById("emojis"),
@@ -789,17 +1014,400 @@ const s = p => {
 		  prompt["p3.5"] = p.loadImage('media/prompt/prompt3.5.gif');
 		  prompt["p4"] = p.loadImage('media/prompt/prompt4.gif');
 		  prompt["p4.5"] = p.loadImage('media/prompt/prompt4.5.gif');
+
+		  //retro
+		  prompt["p6"] = p.loadImage('media/prompt/prompt6.gif');
      }
 	 p.draw = function(){
+	 if(doit){
+		  p.promedio();
+		  doit = false;
+	 }
 	  p.noTint();
 	  p.fill(255);
 	  p.rect(0,0,window.innerWidth,window.innerHeight);
 	  //pantallaP
+	  p.tint(255, alpha);
 	  p.image(pantallaP[rondaPantalla], 0, 0, window.innerWidth,window.innerHeight); 
-	  p.tint(255, 200);
 	  //mensaje
+	  p.tint(255, 200);
 	  p.image(prompt[rondaPrompt], 0, 0, window.innerWidth,window.innerHeight);
 	 }
+
+	 p.promedio = function (){
+	 switch(cuentaX){
+			case -3:
+			switch(cuentaY){
+				case -3:
+				pantallaP["p0"] = p.createVideo("media/Bloque3/Bloque3_3,3.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case -2:
+				pantallaP["p0"] = p.createVideo("media/Bloque3/Bloque3_3,2.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case -1:
+				pantallaP["p0"] = p.createVideo("media/Bloque3/Bloque3_3,1.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 0:
+				pantallaP["p0"] = p.createVideo("media/emociones/Angry03.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 1:
+				pantallaP["p0"] = p.createVideo("media/Bloque2/Bloque2_3,1.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 2:
+				pantallaP["p0"] = p.createVideo("media/Bloque2/Bloque2_3,2.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 3:
+				pantallaP["p0"] = p.createVideo("media/Bloque2/Bloque2_3,3.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+			}
+			break;
+
+			case -2:
+			switch(cuentaY){
+				case -3:
+				pantallaP["p0"] = p.createVideo("media/Bloque3/Bloque3_2,3.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case -2:
+				pantallaP["p0"] = p.createVideo("media/Bloque3/Bloque3_2,2.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case -1:
+				pantallaP["p0"] = p.createVideo("media/Bloque3/Bloque3_2,1.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 0:
+				pantallaP["p0"] = p.createVideo("media/emociones/Angry02.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 1:
+				pantallaP["p0"] = p.createVideo("media/Bloque2/Bloque2_2,1.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 2:
+				pantallaP["p0"] = p.createVideo("media/Bloque2/Bloque2_2,2.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 3:
+				pantallaP["p0"] = p.createVideo("media/Bloque2/Bloque2_2,3.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+			}
+			break;
+
+			case -1:
+			switch(cuentaY){
+				case -3:
+				pantallaP["p0"] = p.createVideo("media/Bloque3/Bloque3_1,3.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case -2:
+				pantallaP["p0"] = p.createVideo("media/Bloque3/Bloque3_1,2.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case -1:
+				pantallaP["p0"] = p.createVideo("media/Bloque3/Bloque3_1,1.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 0:
+				pantallaP["p0"] = p.createVideo("media/emociones/Angry01.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 1:
+				pantallaP["p0"] = p.createVideo("media/Bloque2/Bloque2_1,1.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 2:
+				pantallaP["p0"] = p.createVideo("media/Bloque2/Bloque2_1,2.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 3:
+				pantallaP["p0"] = p.createVideo("media/Bloque2/Bloque2_1,3.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+			}
+			break;
+
+			case 0:
+			switch(cuentaY){
+				case -3:
+				pantallaP["p0"] = p.createVideo("media/emociones/Sad03.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case -2:
+				pantallaP["p0"] = p.createVideo("media/emociones/Sad02.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case -1:
+				pantallaP["p0"] = p.createVideo("media/emociones/Sad01.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 0:
+				pantallaP["p0"] = p.createVideo("media/neutral.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 1:
+				pantallaP["p0"] = p.createVideo("media/emociones/Happy01.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 2:
+				pantallaP["p0"] = p.createVideo("media/emociones/Happy02.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 3:
+				pantallaP["p0"] = p.createVideo("media/emociones/Happy03.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+			}
+			break;
+
+			case 1:
+			switch(cuentaY){
+				case -3:
+				pantallaP["p0"] = p.createVideo("media/Bloque4/Bloque4_1,3.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case -2:
+				pantallaP["p0"] = p.createVideo("media/Bloque4/Bloque4_1,2.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case -1:
+				pantallaP["p0"] = p.createVideo("media/Bloque4/Bloque4_1,1.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 0:
+				pantallaP["p0"] = p.createVideo("media/emociones/Calm01.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 1:
+				pantallaP["p0"] = p.createVideo("media/Bloque1/Bloque1_1,1.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 2:
+				pantallaP["p0"] = p.createVideo("media/Bloque1/Bloque1_1,2.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 3:
+				pantallaP["p0"] = p.createVideo("media/Bloque1/Bloque1_1,3.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+			}
+			break;
+
+			case 2:
+			switch(cuentaY){
+				case -3:
+				pantallaP["p0"] = p.createVideo("media/Bloque4/Bloque4_2,3.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case -2:
+				pantallaP["p0"] = p.createVideo("media/Bloque4/Bloque4_2,2.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case -1:
+				pantallaP["p0"] = p.createVideo("media/Bloque4/Bloque4_2,1.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 0:
+				pantallaP["p0"] = p.createVideo("media/emociones/Calm02.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 1:
+				pantallaP["p0"] = p.createVideo("media/Bloque1/Bloque1_2,1.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 2:
+				pantallaP["p0"] = p.createVideo("media/Bloque1/Bloque1_2,2.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 3:
+				pantallaP["p0"] = p.createVideo("media/Bloque1/Bloque1_2,3.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+			}
+			break;
+
+			case 3:
+			switch(cuentaY){
+				case -3:
+				pantallaP["p0"] = p.createVideo("media/Bloque4/Bloque4_3,3.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case -2:
+				pantallaP["p0"] = p.createVideo("media/Bloque4/Bloque4_3,2.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case -1:
+				pantallaP["p0"] = p.createVideo("media/Bloque4/Bloque4_3,1.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 0:
+				pantallaP["p0"] = p.createVideo("media/emociones/Calm03.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 1:
+				pantallaP["p0"] = p.createVideo("media/Bloque1/Bloque1_3,1.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 2:
+				pantallaP["p0"] = p.createVideo("media/Bloque1/Bloque1_3,2.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+
+				case 3:
+				pantallaP["p0"] = p.createVideo("media/Bloque1/Bloque1_3,3.mp4");
+				pantallaP["p0"].hide();
+				pantallaP["p0"].volume(0);
+				pantallaP["p0"].loop();
+				break;
+			}
+			break;
+		}
+	}
 }
 
 new p5(s, "contenedor");

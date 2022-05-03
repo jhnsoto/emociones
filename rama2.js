@@ -16,7 +16,7 @@ function setup() {
  video.size(window.innerWidth / vScale, window.innerHeight / vScale);
  video.hide();
 
- fondo = createVideo('media/Left/L_Neutral.mp4');
+ fondo = createVideo('media/Right/R_Neutral.mp4');
  fondo.hide();
  fondo.volume(0);
  fondo.loop();
@@ -82,49 +82,49 @@ function fondoColor(){
         case -3:
         switch(checkY){
             case -3:
-            fondo = createVideo('media/Left/L_Bloque3_3-3.mp4');
+            fondo = createVideo('media/Right/R_Bloque3_3-3.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case -2:
-            fondo = createVideo('media/Left/L_Bloque3_3-2.mp4');
+            fondo = createVideo('media/Right/R_Bloque3_3-2.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case -1:
-            fondo = createVideo('media/Left/L_Bloque3_3-1.mp4');
+            fondo = createVideo('media/Right/R_Bloque3_3-1.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 0:
-            fondo = createVideo('media/Left/L_Angry03.mp4');
+            fondo = createVideo('media/Right/R_Angry03.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 1:
-            fondo = createVideo('media/Left/L_Bloque4_3-1.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_3-1.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 2:
-            fondo = createVideo('media/Left/L_Bloque4_3-2.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_3-2.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 3:
-            fondo = createVideo('media/Left/L_Bloque4_3-3.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_3-3.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
@@ -135,49 +135,49 @@ function fondoColor(){
         case -2:
         switch(checkY){
             case -3:
-            fondo = createVideo('media/Left/L_Bloque3_2-3.mp4');
+            fondo = createVideo('media/Right/R_Bloque3_2-3.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case -2:
-            fondo = createVideo('media/Left/L_Bloque3_2-2.mp4');
+            fondo = createVideo('media/Right/R_Bloque3_2-2.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case -1:
-            fondo = createVideo('media/Left/L_Bloque3_2-1.mp4');
+            fondo = createVideo('media/Right/R_Bloque3_2-1.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 0:
-            fondo = createVideo('media/Left/L_Angry02.mp4');
+            fondo = createVideo('media/Right/R_Angry02.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 1:
-            fondo = createVideo('media/Left/L_Bloque4_2-1.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_2-1.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 2:
-            fondo = createVideo('media/Left/L_Bloque4_2-2.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_2-2.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 3:
-            fondo = createVideo('media/Left/L_Bloque4_2-3.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_2-3.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
@@ -188,49 +188,49 @@ function fondoColor(){
         case -1:
         switch(checkY){
             case -3:
-            fondo = createVideo('media/Left/L_Bloque3_1-3.mp4');
+            fondo = createVideo('media/Right/R_Bloque3_1-3.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case -2:
-            fondo = createVideo('media/Left/L_Bloque3_1-2.mp4');
+            fondo = createVideo('media/Right/R_Bloque3_1-2.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case -1:
-            fondo = createVideo('media/Left/L_Bloque3_1-1.mp4');
+            fondo = createVideo('media/Right/R_Bloque3_1-1.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 0:
-            fondo = createVideo('media/Left/L_Angry01.mp4');
+            fondo = createVideo('media/Right/R_Angry01.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 1:
-            fondo = createVideo('media/Left/L_Bloque4_1-1.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_1-1.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 2:
-            fondo = createVideo('media/Left/L_Bloque4_1-2.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_1-2.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 3:
-            fondo = createVideo('media/Left/L_Bloque4_1-3.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_1-3.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
@@ -241,21 +241,21 @@ function fondoColor(){
         case 0:
         switch(checkY){
             case -3:
-            fondo = createVideo('media/Left/L_Sad01.mp4');
+            fondo = createVideo('media/Right/R_Sad01.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case -2:
-            fondo = createVideo('media/Left/L_Sad02.mp4');
+            fondo = createVideo('media/Right/R_Sad02.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case -1:
-            fondo = createVideo('media/Left/L_Sad03.mp4');
+            fondo = createVideo('media/Right/R_Sad03.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
@@ -263,28 +263,28 @@ function fondoColor(){
 
             //NEUTRAL
             case 0:
-            fondo = createVideo('media/Left/L_Neutral.mp4');
+            fondo = createVideo('media/Right/R_Neutral.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 1:
-            fondo = createVideo('media/Left/L_Happy01.mp4');
+            fondo = createVideo('media/Right/R_Happy01.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 2:
-            fondo = createVideo('media/Left/L_Happy02.mp4');
+            fondo = createVideo('media/Right/R_Happy02.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 3:
-            fondo = createVideo('media/Left/L_Happy03.mp4');
+            fondo = createVideo('media/Right/R_Happy03.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
@@ -295,49 +295,49 @@ function fondoColor(){
         case 1:
         switch(checkY){
             case -3:
-            fondo = createVideo('media/Left/L_Bloque4_1-3.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_1-3.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case -2:
-            fondo = createVideo('media/Left/L_Bloque4_1-2.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_1-2.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case -1:
-            fondo = createVideo('media/Left/L_Bloque4_1-1.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_1-1.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 0:
-            fondo = createVideo('media/Left/L_Calm01.mp4');
+            fondo = createVideo('media/Right/R_Calm01.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 1:
-            fondo = createVideo('media/Left/L_Bloque1_1-1.mp4');
+            fondo = createVideo('media/Right/R_Bloque1_1-1.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 2:
-            fondo = createVideo('media/Left/L_Bloque1_1-2.mp4');
+            fondo = createVideo('media/Right/R_Bloque1_1-2.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 3:
-            fondo = createVideo('media/Left/L_Bloque1_1-3.mp4');
+            fondo = createVideo('media/Right/R_Bloque1_1-3.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
@@ -348,49 +348,49 @@ function fondoColor(){
         case 2:
         switch(checkY){
             case -3:
-            fondo = createVideo('media/Left/L_Bloque4_2-3.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_2-3.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case -2:
-            fondo = createVideo('media/Left/L_Bloque4_2-2.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_2-2.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case -1:
-            fondo = createVideo('media/Left/L_Bloque4_2-1.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_2-1.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 0:
-            fondo = createVideo('media/Left/L_Calm02.mp4');
+            fondo = createVideo('media/Right/R_Calm02.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 1:
-            fondo = createVideo('media/Left/L_Bloque1_2-1.mp4');
+            fondo = createVideo('media/Right/R_Bloque1_2-1.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 2:
-            fondo = createVideo('media/Left/L_Bloque1_2-2.mp4');
+            fondo = createVideo('media/Right/R_Bloque1_2-2.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 3:
-            fondo = createVideo('media/Left/L_Bloque1_2-3.mp4');
+            fondo = createVideo('media/Right/R_Bloque1_2-3.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
@@ -401,49 +401,49 @@ function fondoColor(){
         case 3:
         switch(checkY){
             case -3:
-            fondo = createVideo('media/Left/L_Bloque4_3-3.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_3-3.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case -2:
-            fondo = createVideo('media/Left/L_Bloque4_3-2.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_3-2.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case -1:
-            fondo = createVideo('media/Left/L_Bloque4_3-1.mp4');
+            fondo = createVideo('media/Right/R_Bloque4_3-1.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 0:
-            fondo = createVideo('media/Left/L_Calm03.mp4');
+            fondo = createVideo('media/Right/R_Calm03.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 1:
-            fondo = createVideo('media/Left/L_Bloque1_3-1.mp4');
+            fondo = createVideo('media/Right/R_Bloque1_3-1.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 2:
-            fondo = createVideo('media/Left/L_Bloque1_3-2.mp4');
+            fondo = createVideo('media/Right/R_Bloque1_3-2.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
             break;
 
             case 3:
-            fondo = createVideo('media/Left/L_Bloque1_3-3.mp4');
+            fondo = createVideo('media/Right/R_Bloque1_3-3.mp4');
             fondo.hide();
             fondo.volume(0);
             fondo.loop();
