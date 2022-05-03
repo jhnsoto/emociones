@@ -87,7 +87,7 @@ d3.select("#granopoco4")
 
 //d3 barra
 function estirar1(){
-intensidadChecker = "check";
+intensidadChecker = "checkUno";
 d3.select("#grupod3")
   .transition()
   .ease(d3.easeCubicInOut)
@@ -109,7 +109,7 @@ d3.select("#my_rect_frente")
 }
 
 function estirar2(){
-intensidadChecker = "check";
+intensidadChecker = "checkDos";
 d3.select("#grupod3")
   .transition()
   .ease(d3.easeCubicInOut)
@@ -131,7 +131,7 @@ d3.select("#my_rect_frente")
 }
 
 function estirar3(){
-intensidadChecker = "check";
+intensidadChecker = "checkTres";
 d3.select("#grupod3")
   .transition()
   .ease(d3.easeCubicInOut)
@@ -159,7 +159,7 @@ let prompt = {
 };
 let ronda = 0;
 
-let rondaPantalla = "p1";
+let rondaPantalla = "p0";
 
 let rondaPrompt = "p1";
 
@@ -175,7 +175,30 @@ let emojiNumber = 15;
 
 let tiempoPregunta = 3000;
 
-let relojes = ["base", "arena", "base2", "arena2", "base3", "arena3", "base4", "arena4"]
+let relojes = ["base", "arena", "base2", "arena2", "base3", "arena3", "base4", "arena4"];
+
+//Mapeo
+
+let cuentaPersonas = 0;
+
+let cuentaAngry = 0;
+let cuentaHappy = 0;
+let cuentaSad = 0;
+let cuentaCalm = 0;
+
+let cuentaAngryMap = 0;
+let cuentaHappyMap = 0;
+let cuentaSadMap = 0;
+let cuentaCalmMap = 0;
+
+let cuentaX = 0;
+let cuentaY = 0;
+
+function map_range(value, high1) {
+    return (3) * (value) / (high1);
+}
+
+let mapping = 'media/neutral.mp4';
 
 //expresiones de funcion
 let prompt25; 
@@ -212,7 +235,7 @@ document.addEventListener('keydown', keyHandler);
 function rondaHandler(){
 	switch(ronda){
 		case 0:
-		rondaPantalla = "p1";
+		rondaPantalla = "p0";
 		rondaPrompt = "p1";
 		break;
 
@@ -265,6 +288,82 @@ function rondaHandler(){
 			document.getElementById("contenedor2").setAttribute("style", "visibility : visible;");
 			prompt55 = setTimeout(()=>{rondaPrompt2 = "p5.5";}, tiempoPregunta);
 		}
+		break;
+
+		case 5:
+		cuentaPersonas += 1;
+		switch emotionChecker{
+			case "angry":
+			switch intensidadChecker{
+				case "checkUno":
+				cuentaAngry += 1;
+				break;
+
+				case "checkDos":
+				cuentaAngry += 2;
+				break;
+
+				case "checkTres";
+				cuentaAngry += 3;
+				break;
+			}
+			//cuenta demas emociones
+			break;
+
+			case "happy":
+			switch intensidadChecker{
+				case "checkUno":
+				cuentaHappy += 1;
+				break;
+
+				case "checkDos":
+				cuentaHappy += 2;
+				break;
+
+				case "checkTres";
+				cuentaHappy += 3;
+				break;
+			}
+			break;
+
+			case "sad":
+			switch intensidadChecker{
+				case "checkUno":
+				cuentaSad += 1;
+				break;
+
+				case "checkDos":
+				cuentaSad += 2;
+				break;
+
+				case "checkTres";
+				cuentaSad += 3;
+				break;
+			}
+			break;
+
+			case "calm":
+			switch intensidadChecker{
+				case "checkUno":
+				cuentaCalm += 1;
+				break;
+
+				case "checkDos":
+				cuentaCalm += 2;
+				break;
+
+				case "checkTres";
+				cuentaCalm += 3;
+				break;
+			}
+			break;
+		}
+		cuentaAngryMap = map_range(cuentaAngry,cuentaPersonas);
+		cuentaHappyMap = map_range(cuentaHappy,cuentaPersonas);
+		cuentaSadMap = map_range(cuentaSad,cuentaPersonas);
+		cuentaCalmMap = map_range(cuentaCalm,cuentaPersonas);
+		cuentaX = cuentaAngryMap - cuentaCalmMap;
+		cuentaY = cuentaHappyMap - cuentaSadMap;
 		break;
 	}
 }
@@ -426,7 +525,7 @@ function amarilloHandler(){
 
 		case 3:
 		pocoTiempo();
-		tiempoChecker = "check";
+		tiempoChecker = "checkPoco";
 		break;
 	}
 }
@@ -500,7 +599,7 @@ function azulHandler(){
 
 		case 3:
 		muchoTiempo();
-		tiempoChecker = "check";
+		tiempoChecker = "checkMucho";
 		break;
 	}
 }
@@ -573,7 +672,7 @@ function verdeHandler(){
 		break;
 
 		case 3:
-		tiempoChecker = "check";
+		tiempoChecker = "checkDuda";
 		emojisplosion({
 		emojiCount: emojiNumber,
 		emojis: ["❔"],
@@ -606,6 +705,11 @@ const s = p => {
 		p.createCanvas(window.innerWidth,window.innerHeight);
 
 		  //Ronda 1, 2 PantallaP
+		  pantallaP["p0"] = p.createVideo(mapping);
+		  pantallaP["p0"].hide();
+		  pantallaP["p0"].volume(0);
+		  pantallaP["p0"].loop();
+
 		  pantallaP["p1"] = p.createVideo('media/neutral.mp4');
 		  pantallaP["p1"].hide();
 		  pantallaP["p1"].volume(0);
