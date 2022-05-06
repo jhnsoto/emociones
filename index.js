@@ -156,6 +156,15 @@ d3.select("#my_rect_frente")
 }
 
 //Variables globales
+
+let audio = new Audio('boton.mp3');
+let audio2 = new Audio('regreso.mp3');
+let audio3 = new Audio('error.mp3');
+let audio4 = new Audio('next.mp3');
+let audio5 = new Audio('back.mp3');
+
+
+
 let doit = false;
 let alpha = 255;
 let pantallaP = {
@@ -232,9 +241,6 @@ function map_range(value, high1) {
 let mapping = 'media/neutral.mp4';
 
 //expresiones de funcion
-let prompt25; 
-let prompt35;
-let prompt45;
 let prompt55;
 
 //Key handler 
@@ -268,23 +274,25 @@ function rondaHandler(){
 		case 0:
 		rondaPantalla = "p0";
 		rondaPrompt = "p1";
+		audio4.play();
 		break;
 
 		case 1:
+		audio4.play();
 		rondaPantalla = "p1";
 		rondaPrompt = "p2";
-		prompt25 = setTimeout(()=>{rondaPrompt = "p2.5";}, tiempoPregunta);
 		localStorage.setItem('bool', 'true');
 		break;
 
 		case 2:
+		audio4.play();
 		if(emotionChecker==="na"){
 		ronda -= 1;
+		audio3.play();
 		}
 		if(!(emotionChecker==="na")){
-		clearTimeout(prompt25);
+		audio4.play();
 		rondaPrompt = "p3";
-		prompt35 = setTimeout(()=>{rondaPrompt = "p3.5";}, tiempoPregunta);
 		switch(emotionChecker){
 			case "angry":
 			rondaPantalla = "p2.angry2";
@@ -303,28 +311,32 @@ function rondaHandler(){
 		break;
 
 		case 3:
+		audio4.play();
 		if(intensidadChecker==="na"){
+		audio3.play();
 		ronda -= 1;
 		}
 		if(!(intensidadChecker==="na")){
-		clearTimeout(prompt35);
+		audio4.play();
 		rondaPrompt = "p4";
-		prompt45 = setTimeout(()=>{rondaPrompt = "p4.5";}, tiempoPregunta);
 		}
 		break;
 
 		case 4:
+		
 		if(tiempoChecker === "na"){
+		audio3.play();
 			ronda -= 1;
 		}
 		if(!(tiempoChecker === "na")){
-			clearTimeout(prompt45);
+			audio4.play();
 			document.getElementById("contenedor2").setAttribute("style", "visibility : visible;");
 			prompt55 = setTimeout(()=>{rondaPrompt2 = "p5.5";}, 4000);
 		}
 		break;
 
 		case 5:
+		audio4.play();
 		clearTimeout(prompt55);
 		document.getElementById("contenedor2").setAttribute("style", "visibility : hidden;");
 		alpha = 0;
@@ -333,7 +345,20 @@ function rondaHandler(){
 		localStorage.setItem('r',"255");
 		localStorage.setItem('g',"255");
 		localStorage.setItem('b',"255");
-		rondaPrompt = "p6";
+
+		//escoger retro 
+		if(tiempoChecker === "checkPoco" || tiempoChecker === "checkDuda"){
+			rondaPrompt = "p6";
+		}
+		if(tiempoChecker === "checkMucho"){
+			if(emotionChecker === "angry" || emotionChecker === "sad"){
+				rondaPrompt = "p7";
+			}
+			if(emotionChecker === "happy" || emotionChecker === "calm"){
+				rondaPrompt = "p8";
+			}
+		}
+	
 		reinicio = setTimeout(reset, 7000);
 
 		cuentaPersonas += 1;
@@ -437,10 +462,12 @@ function rondaHandler(){
 function rojoHandler(){
 	switch(ronda){
 		case 0:
+		audio3.play();
 		console.log("sfx");
 		break;
 
 		case 1:
+		audio.play();
 		rondaPantalla = "p2.angry2";
 		emotionChecker = "angry";
 		localStorage.setItem('r', '241');
@@ -503,11 +530,8 @@ function rojoHandler(){
 		break;
 
 		case 2:
+		audio5.play();
 		ronda -= 1;
-		clearTimeout(prompt25);
-		clearTimeout(prompt35);
-		clearTimeout(prompt45);
-		clearTimeout(prompt55);
 		localStorage.setItem('r', '0');
 		localStorage.setItem('g', '0');
 		localStorage.setItem('b', '0');
@@ -518,11 +542,8 @@ function rojoHandler(){
 		break;
 
 		case 3:
+		audio5.play();
 		ronda -= 1;
-		clearTimeout(prompt25);
-		clearTimeout(prompt35);
-		clearTimeout(prompt45);
-		clearTimeout(prompt55);
 		intensidadChecker = "na";
 		tiempoChecker = "na";
 		switch(emotionChecker){
@@ -550,6 +571,12 @@ function rojoHandler(){
 		document.getElementById("my_rect_frente").setAttribute("width", "0");
 		rondaHandler();
 		break;
+
+		case 4:
+		audio4.play();
+		ronda += 1;
+		rondaHandler();
+		break;
 	}
 }
 
@@ -558,9 +585,11 @@ function amarilloHandler(){
 	switch(ronda){
 		case 0:
 		console.log("sfx");
+		audio3.play();
 		break;
 
 		case 1:
+		audio.play();
 		rondaPantalla = "p2.happy2";
 		emotionChecker = "happy";
 		localStorage.setItem('r', '243');
@@ -623,6 +652,7 @@ function amarilloHandler(){
 		break;
 
 		case 2:
+		audio.play();
 		estirar1();
 			switch(emotionChecker){
 				case "angry":
@@ -653,8 +683,15 @@ function amarilloHandler(){
 		break;
 
 		case 3:
+		audio.play();
 		pocoTiempo();
 		tiempoChecker = "checkPoco";
+		break;
+
+		case 4:
+		audio4.play();
+		ronda += 1;
+		rondaHandler();
 		break;
 	}
 }
@@ -663,10 +700,12 @@ function amarilloHandler(){
 function azulHandler(){
 	switch(ronda){
 		case 0:
+		audio3.play();
 		console.log("sfx");
 		break;
 
 		case 1:
+		audio.play();
 		rondaPantalla = "p2.sad2";
 		emotionChecker = "sad";
 		localStorage.setItem('r', '197');
@@ -729,6 +768,7 @@ function azulHandler(){
 		break;
 
 		case 2:
+		audio.play();
 		estirar2();
 			switch(emotionChecker){
 				case "angry":
@@ -759,8 +799,15 @@ function azulHandler(){
 		break;
 
 		case 3:
+		audio.play();
 		muchoTiempo();
 		tiempoChecker = "checkMucho";
+		break;
+
+		case 4:
+		audio4.play();
+		ronda += 1;
+		rondaHandler();
 		break;
 	}
 }
@@ -769,10 +816,12 @@ function azulHandler(){
 function verdeHandler(){
 	switch(ronda){
 		case 0:
+		audio3.play();
 		console.log("sfx")
 		break;
 
 		case 1:
+		audio.play();
 		rondaPantalla = "p2.calm2";
 		emotionChecker = "calm";
 		localStorage.setItem('r', '205');
@@ -835,6 +884,7 @@ function verdeHandler(){
 		break;
 
 		case 2:
+		audio.play();
 		estirar3();
 			switch(emotionChecker){
 				case "angry":
@@ -865,6 +915,7 @@ function verdeHandler(){
 		break;
 
 		case 3:
+		audio.play();
 		tiempoChecker = "checkDuda";
 		emojisplosion({
 		physics:{
@@ -916,6 +967,12 @@ function verdeHandler(){
 		y: innerHeight/2,
 		},
 		});
+		break;
+
+		case 4:
+		audio4.play();
+		ronda += 1;
+		rondaHandler();
 		break;
 	}
 }
@@ -1009,14 +1066,13 @@ const s = p => {
 		  //Ronda 1, 2 Prompt
 		  prompt["p1"] = p.loadImage('media/prompt/prompt1.gif');
 		  prompt["p2"] = p.loadImage('media/prompt/prompt2.gif');
-		  prompt["p2.5"] = p.loadImage('media/prompt/prompt2.5.gif');
 		  prompt["p3"] = p.loadImage('media/prompt/prompt3.gif');
-		  prompt["p3.5"] = p.loadImage('media/prompt/prompt3.5.gif');
 		  prompt["p4"] = p.loadImage('media/prompt/prompt4.gif');
-		  prompt["p4.5"] = p.loadImage('media/prompt/prompt4.5.gif');
 
 		  //retro
 		  prompt["p6"] = p.loadImage('media/prompt/prompt6.gif');
+		  prompt["p7"] = p.loadImage('media/prompt/prompt7.gif');
+		  prompt["p8"] = p.loadImage('media/prompt/prompt8.gif');
      }
 	 p.draw = function(){
 	 if(doit){
